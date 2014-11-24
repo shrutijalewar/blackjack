@@ -8,15 +8,16 @@
       $stateProvider
         .state('home',     {url:'/',         templateUrl:'/views/home/home.html'})
         .state('register', {url:'/register', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
-        .state('login',    {url:'/login',    templateUrl:'/views/users/users.html', controller:'UsersCtrl'});
+        .state('login',    {url:'/login',    templateUrl:'/views/users/login.html', controller:'UsersCtrl'});
 
       $localForageProvider.config({name:'hapi-auth', storeName:'cache', version:1.0});
     }])
     .run(['$rootScope', '$http', function($rootScope, $http){
       $http.get('/status').then(function(response){
         $rootScope.$broadcast('username', response.data.username);
+        $rootScope.$broadcast('avatar', response.data.avatar);
       }, function(){
-        $rootScope.$broadcast('username', null);
+        $rootScope.$broadcast('username','avatar', null);
       });
 
       window.socket = io.connect('/');
