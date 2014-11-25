@@ -6,18 +6,19 @@
       $urlRouterProvider.otherwise('/');
 
       $stateProvider
-        .state('home',     {url:'/',         templateUrl:'/views/home/home.html'})
-        .state('register', {url:'/register', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
-        .state('login',    {url:'/login',    templateUrl:'/views/users/login.html', controller:'UsersCtrl'});
+        .state('home',      {url:'/',         templateUrl:'/views/home/home.html'})
+        .state('register',  {url:'/register', templateUrl:'/views/users/users.html', controller:'UsersCtrl'})
+        .state('login',     {url:'/login',    templateUrl:'/views/users/login.html', controller:'UsersCtrl'})
+        .state('rooms',     {url:'/rooms',    templateUrl:'/views/rooms/rooms.html', abstract: true})
+        .state('rooms.list',{url:'',          templateUrl:'/views/rooms/rooms_list.html', controller:'Rooms_listCtrl'});
 
       $localForageProvider.config({name:'hapi-auth', storeName:'cache', version:1.0});
     }])
     .run(['$rootScope', '$http', function($rootScope, $http){
       $http.get('/status').then(function(response){
-        $rootScope.$broadcast('username', response.data.username);
-        $rootScope.$broadcast('avatar', response.data.avatar);
+        $rootScope.rootuser = response.data;
       }, function(){
-        $rootScope.$broadcast('username','avatar', null);
+        $rootScope.rootuser= null;
       });
 
       window.socket = io.connect('/');
