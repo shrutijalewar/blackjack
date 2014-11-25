@@ -12,7 +12,7 @@
                     username: $rootScope.rootuser.username,
                     body: msg
                 });
-                $scope.msg = {};
+                $scope.msg = null;
             };
             socket.on('bGlobalChat', function(msg){
                 //console.log(data);

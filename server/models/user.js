@@ -2,6 +2,9 @@
 
 var mongoose = require('mongoose'),
     bcrypt   = require('bcrypt'),
+    request  = require('request'),
+    path     = require('path'),
+    AWS      = require('aws-sdk'),
     UserSchema = null,
     User = null;
 
@@ -14,6 +17,20 @@ UserSchema = new mongoose.Schema({
 
 UserSchema.methods.encrypt = function(){
   this.password = bcrypt.hashSync(this.password, 10);
+};
+
+UserSchema.methods.download = function(cb){
+    var s3   = new AWS.S3(),
+        url  = this.avatar,
+        ext  = path.extname(this.avatar),
+        file = this._id + '.avatar' + ext;
+
+    this.avatar = 'https://s3.amazonaws.com/' + process.env.AWS_BUCKET + '/' + file;
+
+    request({url: url, encoding: null}, function(err, response, body){
+        var params = {Bucket: process.env.AWS_BUCKET, Key: file, Body: body, ACL: 'public-read'};
+        s3.putObject(params, cb);
+    });
 };
 
 UserSchema.statics.login = function(obj, cb){
