@@ -34,7 +34,7 @@
             });
 
             $scope.join = function(room){
-                Room.join({name:room.name, password:this.passowrd}).then(function(response){
+                Room.join({name:room.name, password:this.password}).then(function(response){
                    var roomId = response.data.roomId;
                     $state.go('rooms.detail',{roomId:roomId});
                 });

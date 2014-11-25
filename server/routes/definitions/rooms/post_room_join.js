@@ -15,7 +15,9 @@ module.exports = {
         }
     },
     handler: function(request, reply){
-        Room.findOne({name:request.params.name, password:request.payload.password}, function(err, room){
+        console.log(request.payload);
+        console.log(request.params);
+        Room.login({name:request.params.name, password:request.payload.password}, function(room){
             reply({roomId:room ? room._id : null}).code(room ? 200 : 400);
         });
     }

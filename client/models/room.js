@@ -13,7 +13,8 @@
             }
 
             function join(room){
-                return $http.post('/rooms/' + room.name + {password:room.password});
+                console.log(room);
+                return $http.post('/rooms/' + room.name, {password:room.password});
             }
             return {create:create, all:all, join:join};
         }]);

@@ -24,5 +24,24 @@ function passwordV(v){
     return v.length === 60;
 }
 
+RoomSchema.statics.login = function(obj, cb){
+    console.log('oooooooooo',obj);
+    Room.findOne({name: obj.name}, function(err, room){
+        console.log('rrrrrrrrrrr', room);
+        if(!room){
+            return cb();
+        }
+
+        var isGood = bcrypt.compareSync(obj.password, room.password);
+        console.log(isGood);
+        if(!isGood){
+            return cb();
+        }
+
+        cb(room);
+    });
+};
+
+
 Room = mongoose.model('Room', RoomSchema);
 module.exports = Room;
