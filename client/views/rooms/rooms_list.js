@@ -32,5 +32,12 @@
             Room.all().then(function(response){
                 $scope.rooms = response.data.rooms;
             });
+
+            $scope.join = function(room){
+                Room.join({name:room.name, password:this.passowrd}).then(function(response){
+                   var roomId = response.data.roomId;
+                    $state.go('rooms.detail',{roomId:roomId});
+                });
+            };
         }]);
 })();

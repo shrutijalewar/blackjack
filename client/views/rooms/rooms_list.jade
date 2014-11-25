@@ -27,7 +27,7 @@
                             td: img(ng-src='{{room.avatar}}')
                             td {{room.name}}
                             td: input(type='password', ng-model='password')
-                            td: button.tiny.alert.radius Join
+                            td: button.tiny.alert.radius(ng-click='join(room)') Join
 
     .small-6.columns
         h3 Chat it Up!
