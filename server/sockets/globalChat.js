@@ -3,6 +3,6 @@
 module.exports = function(data){
     var socket = this;
     //console.log('msg rx from client', data);
-    socket.broadcast.emit('bGlobalChat', data);
-    socket.emit('bGlobalChat',  data);
+    socket.broadcast.emit('GlobalChat', data);
+    socket.emit('GlobalChat',  data);
 };

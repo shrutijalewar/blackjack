@@ -16,6 +16,9 @@
                 console.log(room);
                 return $http.post('/rooms/' + room.name, {password:room.password});
             }
-            return {create:create, all:all, join:join};
+            function find(roomId){
+                return $http.get('/rooms/' + roomId);
+            }
+            return {create:create, all:all, join:join, find:find};
         }]);
 })();

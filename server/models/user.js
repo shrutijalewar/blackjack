@@ -11,6 +11,7 @@ var mongoose = require('mongoose'),
 UserSchema = new mongoose.Schema({
   username:  {type: String, required: true, validate: [usernameV, 'username length'], unique: true},
   password:  {type: String, required: true, validate: [passwordV, 'password length']},
+    socketId: {type: String, required: false, validate:[socketV, 'socket length']},
     avatar:  {type: String, required: true},
   createdAt: {type: Date,  required: true, default: Date.now}
 });
@@ -55,6 +56,10 @@ function usernameV(v){
 
 function passwordV(v){
   return v.length === 60;
+}
+
+function socketV(v){
+    return v.length === 20;
 }
 
 User = mongoose.model('User', UserSchema);

@@ -14,10 +14,6 @@
                 });
                 $scope.msg = null;
             };
-            socket.on('bGlobalChat', function(msg){
-                //console.log(data);
-                $('#messages').append('<div class="chat"><img src="'+ msg.avatar + '"/>'+ msg.username+ ':' + msg.body +'</div><hr />');
-            });
 
             $scope.room = {};
             $scope.rooms =[];
@@ -39,5 +35,14 @@
                     $state.go('rooms.detail',{roomId:roomId});
                 });
             };
+
+            socket.off('globalChat');
+            socket.on('globalChat', function(data){
+                $scope.messages.unshift(data);
+                $scope.messages = $scope.messages.slice(0, 100);
+                $scope.msg = null;
+                $('#message').focus();
+                $scope.$digest();
+            });
         }]);
 })();

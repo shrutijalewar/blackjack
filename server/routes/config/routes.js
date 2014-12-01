@@ -8,5 +8,7 @@ module.exports = [
   {method: 'get',    path: '/status',         config: require('../definitions/users/get_status')},
   {method: 'get',    path: '/rooms',          config: require('../definitions/rooms/get_rooms')},
   {method: 'post',    path: '/rooms',         config: require('../definitions/rooms/post_rooms')},
-  {method: 'post',    path: '/rooms/{name}',  config: require('../definitions/rooms/post_room_join')}
+  {method: 'post',    path: '/rooms/{name}',  config: require('../definitions/rooms/post_room_join')},
+  {method: 'get',    path: '/rooms/{roomId}', config: require('../definitions/rooms/get_rooms_find')},
+  {method: 'put',    path: '/users/{userId}', config: require('../definitions/users/put_user_socket')}
 ];

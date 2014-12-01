@@ -32,5 +32,8 @@
     .small-6.columns
         h3 Chat it Up!
         #messages.panel.callout.radius
-        input(type='text', ng-model='msg', required=true)
-        button.success.tiny.radius(ng-click='chat(msg)') Send Message
+            .message(ng-repeat='message in messages')
+            .avatar(style='background-image:url("{{message.avatar}}")')
+            .content {{message.content}}
+        input#message(type='text', ng-model='message')
+        button.success.tiny.radius(ng-click='chat(message)') Send Message

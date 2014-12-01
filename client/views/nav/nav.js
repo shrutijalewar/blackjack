@@ -4,10 +4,7 @@
   angular.module('hapi-auth')
     .controller('NavCtrl', ['$rootScope','$scope', '$state', 'User', function($rootScope, $scope, $state, User){
 
-        $scope.$on('online', function(){
-          $scope.online = true;
-          $scope.$digest();
-        });
+
 
       $scope.logout = function(){
         User.logout().then(function(){
